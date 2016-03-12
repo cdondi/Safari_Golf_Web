@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
+  
+  <siteMapNode url="/" title="top" description="top" roles="*">
+
+     <siteMapNode url="default.aspx" title="Home" description="Welcome page" >
+    </siteMapNode>
+
+    <siteMapNode url="ScorecardUpdate.aspx" title="Update My Current Game" description="Update My Current  Game">
+      <siteMapNode url="MyPreviousGamesUpdate.aspx" title="Update My Games" description="Update My Games" />
+    </siteMapNode>
+  
+  <siteMapNode url="DefaultAdmin.aspx" title="Administration" description="Administration">
+      <siteMapNode url="Course_Edit.aspx" title="Update Course" description="Update Course" />
+      <siteMapNode url="CourseRating.aspx" title="Update Course Rating" description="Update Course Rating" />
+      <siteMapNode url="MemberUpdates.aspx" title="Update Member" description="Update Member" />
+      <siteMapNode url="Scorecard_Pairing.aspx" title="Game Pairing" description="Game Pairing" />
+      <siteMapNode url="PreviousGamesUpdate.aspx" title="Update Games" description="Update Games" />
+    <siteMapNode url="MemberCreate.aspx" title="Create User" description="Create User" />    
+    <siteMapNode url="Admin/role_view.aspx" title="Manage Roles" description="Modify Roles" />
+      <siteMapNode url="Admin/PageManagement.aspx" title="Manage Pages" description="" />      
+    </siteMapNode>
+
+  
+    <siteMapNode url="Scorecard_Leaderboard.aspx" title="View LeaderBoard" description="View LeaderBoard">
+      <siteMapNode url="MemberStablefordPoints.aspx" title="View Stable Ford Points" description="View Stable Ford Points" />
+      <siteMapNode url="PreviousGames.aspx" title="View Games" description="View Games" />
+      <siteMapNode url="Scorecard_Pairing_View.aspx" title="View Game Pairing" description="View Game Pairing" />
+      <siteMapNode url="Scorecard_List.aspx" title="View All Scorecards" description="View All Scorecards" />
+      <siteMapNode url="PlayerPerformance.aspx" title="View Player Performance" description="View Player Performance" />
+      <siteMapNode url="Locations_list.aspx" title="View Course List" description="View Course List" />
+      <siteMapNode url="member_list.aspx" title="View Members list" description="View Member list" />
+    </siteMapNode>
+  
+     
+    <siteMapNode url="member_redirect.aspx" title="Membership" description="Registration">
+    </siteMapNode>
+    
+    <siteMapNode url="events_calendar.aspx" title="Golf Events" description="Golf Events"></siteMapNode>    
+    <siteMapNode url="photoalbum_list.aspx" title="Photos" description="Photo album"></siteMapNode>    
+    <siteMapNode url="news_list.aspx" title="News" description="Recent News"></siteMapNode>
+    <siteMapNode url="contact.aspx" title="Contact Us" description="Contact Us"></siteMapNode>
+
+
+  </siteMapNode>
+</siteMap>

@@ -1,0 +1,158 @@
+﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="PlayerPerformanceControl.ascx.vb" Inherits="PlayerPerformanceControl" %>
+     
+
+<%@ Register TagPrefix="Club" TagName="LoginBanner" Src="LoginBanner.ascx" %>                                                 
+                                                          
+    <style type="text/css">
+        .controls {
+            width: 180px;
+            height: 334px;
+        }
+    </style>
+      
+                                        
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>  
+                    	 		 
+				<asp:SqlDataSource ID="SqlDataSourcePlayer" runat="server" ConnectionString="<%$ ConnectionStrings:ClubSiteDB %>"
+					SelectCommand="PlayerList" SelectCommandType="StoredProcedure">
+					 
+				</asp:SqlDataSource>
+                 <table class="sampleTable" border="1">
+				   <tr>
+                       <td valign="top">
+
+                        <asp:Repeater ID="Repeater1" runat="server" DataSourceID="SqlDataSourcePlayer" >
+					        <ItemTemplate>
+						        <div>  
+							        <h3>
+								        <a href='<%# "PlayerPerformance.aspx?Ghinid=" + Convert.ToString(Eval("Ghinid"))%>'>
+									        <asp:Label ID="lblFirstName"  style="font-size: small" runat="server" Text='<%# Eval("FirstName")%>' />&nbsp;<asp:Label ID="lblLastName"  style="font-size: small" runat="server" Text='<%# Eval("LastName")%>' />
+								        </a><br /><br />
+							        </h3> 
+						        </div>
+					        </ItemTemplate>
+				        </asp:Repeater> 
+
+                    </td>
+                    <td valign="top">
+                        				
+                            <table class="sampleTable">
+                                <tr>
+                                    <td class="tdchart">
+
+                                        
+						  <asp:Chart ID="Chart1" runat="server" BackColor="#D3DFF0" Palette="BrightPastel"
+                           ImageType="Png" ImageUrl="~/TempImages/ChartPic_#SEQ(300,3)" Width="612px" Height="396px"
+                           borderlinestyle="Solid" backgradientendcolor="White" backgradienttype="TopBottom"
+                          BorderlineWidth="2" BorderlineColor="26, 59, 105" OnClick="Chart1_Click">
+							
+                           <titles>
+								        <asp:Title ShadowColor="32, 0, 0, 0" Font="Trebuchet MS, 14.25pt, style=Bold" ShadowOffset="3" Text="" Name="Title1" ForeColor="26, 59, 105"></asp:Title>
+						   </titles>
+                            
+                            <legends>
+								<asp:legend Enabled="False" IsTextAutoFit="False" Name="Default" BackColor="Transparent" Font="Trebuchet MS, 8.25pt, style=Bold"></asp:legend>
+							</legends>
+							<borderskin skinstyle="Emboss"></borderskin>
+							<series>
+								<asp:series ChartArea="ChartArea1" XValueType="DateTime" Name="Series1" CustomProperties="LabelsRadialLineSize=1, LabelStyle=outside" BorderColor="180, 26, 59, 105" Color="194, 65, 140, 240"></asp:series>
+							</series>
+							<chartareas>
+								<asp:chartarea Name="ChartArea1" BorderColor="64, 64, 64, 64" BorderDashStyle="Solid" BackSecondaryColor="White" BackColor="OldLace" ShadowColor="Transparent" BackGradientStyle="TopBottom">
+									<axisy2 enabled="False"></axisy2>
+									<axisx2 enabled="False"></axisx2>
+									<area3dstyle Rotation="10" perspective="10" Inclination="15" IsRightAngleAxes="False" wallwidth="0" IsClustered="False"></area3dstyle>
+									<axisy linecolor="64, 64, 64, 64" IsLabelAutoFit="False" ArrowStyle="Triangle">
+										<labelstyle font="Trebuchet MS, 8.25pt, style=Bold" />
+										<majorgrid linecolor="64, 64, 64, 64" />
+									</axisy>
+									<axisx linecolor="64, 64, 64, 64" IsLabelAutoFit="False" ArrowStyle="Triangle">
+										<labelstyle font="Trebuchet MS, 8.25pt, style=Bold" IsStaggered="True" />
+										<majorgrid linecolor="64, 64, 64, 64" />
+									</axisx>
+								</asp:chartarea>
+							</chartareas>
+						</asp:chart> 
+
+
+                                    </td>
+
+                                         <td valign="top">
+									Game Series Data<br/>
+									
+                            <asp:GridView ID="DataGrid1"  runat="server" 
+                                    AutoGenerateColumns="False" CellPadding="4"  
+                                    ForeColor="#333333"   GridLines="Both" ShowFooter="True">
+                                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                                    <Columns>
+                                            <asp:BoundField DataField="PlayDate" HeaderText="Play Date" 
+                                            SortExpression="PlayDate" />  
+                                                                                              
+                                            <asp:BoundField DataField="Score" HeaderText="Score" 
+                                            SortExpression="Score" /> 
+                                                                               
+
+                                    </Columns>
+                                   
+                            <HeaderStyle CssClass="headerStyle" ForeColor="White" BackColor="#5D7B9D" 
+                                    Font-Bold="True" />
+                            <RowStyle CssClass="rowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                            <AlternatingRowStyle CssClass="alternatingRowStyle" BackColor="White" 
+                                    ForeColor="#284775" />
+                                <EditRowStyle BackColor="#999999" />
+                            <FooterStyle CssClass="footerStyle" BackColor="#5D7B9D" Font-Bold="True" 
+                                    ForeColor="White" />
+                            <PagerStyle CssClass="pagerStyle" ForeColor="White" BackColor="#284775" 
+                                    HorizontalAlign="Center" />    
+                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                        </asp:GridView>
+
+
+                           </td> 
+					 
+                                </tr>
+                            
+
+                       <tr>
+                      
+                           
+                                    <td valign="top">
+
+                                        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                            <ContentTemplate>
+                                                 
+                                                <asp:GridView ID="GridView" runat="server" AutoGenerateColumns="False" CellPadding="4"
+                                                     ForeColor="#333333" GridLines="None" Width="243px"
+                                                    Caption="Round Details">
+                                                    <RowStyle BackColor="#EFF3FB" />
+                                                    <Columns>
+                                                        <asp:BoundField DataField="Hole" HeaderText="Hole" HeaderStyle-HorizontalAlign="Left">
+                                                            <HeaderStyle HorizontalAlign="Left" />
+                                                        </asp:BoundField>
+                                                        <asp:BoundField DataField="Score" HeaderText="Score" ItemStyle-HorizontalAlign="Right">
+                                                            <ItemStyle HorizontalAlign="Right" />
+                                                        </asp:BoundField>
+                                                    </Columns>
+                                                    <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                                                    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                                                    <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                                                    <HeaderStyle BackColor="#507CD1" Font-Bold="True" Font-Size="Smaller" ForeColor="White" />
+                                                    <EditRowStyle BackColor="#2461BF" />
+                                                    <AlternatingRowStyle BackColor="White" />
+                                                </asp:GridView>
+                                            </ContentTemplate>
+                                            <Triggers>
+                                                <asp:AsyncPostBackTrigger ControlID="Chart1" />
+                                            </Triggers>
+                                        </asp:UpdatePanel>
+                                    </td>
+                          </tr>
+                            </table> 
+        
+					</td>
+				  </tr>
+			    </table>
+                 
+            </ContentTemplate>
+        </asp:UpdatePanel>          

@@ -1,0 +1,285 @@
+﻿
+Imports System
+Imports System.Web.UI.WebControls
+Imports System.Configuration
+Imports System.Data
+Imports System.Data.SqlClient
+Imports DevCow.Web.UI
+Imports System.Collections.Generic
+Imports System.Linq
+Imports System.Web
+Imports System.Web.UI
+Imports System.Collections
+Imports System.Web.Security
+Imports System.Web.UI.WebControls.WebParts
+Imports System.Web.UI.HtmlControls
+Imports System.Security.Principal.PrincipalPolicy
+Imports System.Drawing
+Imports System.Web.UI.DataVisualization
+Imports System.Web.UI.DataVisualization.Charting
+
+Partial Class PlayerPerformanceControl
+    Inherits System.Web.UI.UserControl
+    Private Rating As Integer
+    Private Slope As Integer
+    Private Differential As Integer
+    Protected IsAdmin As Boolean
+    Private nextLocationID As Integer
+    Private prevLocationID As Integer
+    Const INVALIDID As Integer = -1
+
+
+    Protected Property LocationID() As Integer
+        Get
+            Dim m_LocationID As Integer
+            Dim id As Object = ViewState("LocationID")
+            If id IsNot Nothing Then
+                m_LocationID = CInt(id)
+            Else
+                id = Request.QueryString("LocationID")
+                If id IsNot Nothing Then
+                    m_LocationID = Convert.ToInt32(id)
+                Else
+                    m_LocationID = 1
+                End If
+                ViewState("LocationID") = m_LocationID
+            End If
+            Return m_LocationID
+        End Get
+        Set(value As Integer)
+            ViewState("LocationID") = value
+        End Set
+    End Property
+
+    Protected Property GhinID() As Integer
+        Get
+            Dim m_GhinID As Integer
+            Dim id As Object = ViewState("GhinID")
+            If id IsNot Nothing Then
+                m_GhinID = CInt(id)
+            Else
+                id = Request.QueryString("GhinID")
+                If id IsNot Nothing Then
+                    m_GhinID = Convert.ToInt32(id)
+                Else
+                    m_GhinID = 1
+                End If
+                ViewState("LocationID") = m_GhinID
+            End If
+            Return m_GhinID
+        End Get
+        Set(value As Integer)
+            ViewState("GhinID") = value
+        End Set
+    End Property
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+
+        Dim GhinID As String = Request.QueryString("GhinID")
+        Dim ssql2 As String = ""
+        If GhinID <> "" Then
+            GetSeriesValues(GhinID)
+        End If
+    End Sub
+
+    Protected Sub Chart1_Click(sender As Object, e As System.EventArgs) Handles Chart1.Click
+
+
+
+    End Sub
+
+    'Private Sub ShowGraphs(ByVal Ghinid As String)
+    '    Dim sSQL As String
+    '    sSQL = "SELECT [GhinID] ,(select CONVERT(VARCHAR(8), [Date], 1) AS [MM/DD/YY]) as PlayDate ,[GrandTotal] as Score FROM [tb_Scorecard] where [GHINID ] = '" & Ghinid & "' and [GrandTotal] > 0  order by [Date] asc"
+
+    '    Dim dr2 As SqlDataReader
+    '    dr2 = GetDataReader(sSQL)
+
+    '    Dim dr3 As SqlDataReader
+    '    dr3 = GetDataReader(sSQL)
+
+    '    Dim titlex As String = Ghinid
+
+    '    For Each series As Series In Chart2.Series
+    '        series.Points.Clear()
+    '    Next
+    '    For Each series As Series In Chart3.Series
+    '        series.Points.Clear()
+    '    Next
+
+    '    'col chart
+
+    '    If dr3.Read Then
+
+    '        Chart3.Titles(0).Text = titlex
+
+    '        Chart3.ChartAreas("ChartArea1").AxisX.Interval = 1
+
+    '        ' Show/Hide X axis end labels
+    '        Chart3.ChartAreas("ChartArea1").AxisX.LabelStyle.IsEndLabelVisible = True
+
+
+    '        Chart3.ChartAreas("ChartArea1").Area3DStyle.IsRightAngleAxes = True
+    '        Chart3.ChartAreas("ChartArea1").Area3DStyle.IsClustered = Not True
+
+    '        ' Set chart area 3D rotation 
+    '        Chart3.ChartAreas("ChartArea1").Area3DStyle.Inclination = 0
+
+    '        Chart3.ChartAreas("ChartArea1").Area3DStyle.Rotation = 0
+
+    '        '' Set axis labels angle
+    '        Chart3.ChartAreas("ChartArea1").AxisX.LabelStyle.Angle = 0
+
+    '        Chart3.Series("Default")("PointWidth") = "0.6"
+    '        Chart3.Series("Default")("DrawingStyle") = "Cylinder"
+
+    '        Chart3.DataBindCrossTable(dr3, "PlayDate", "Score", "Score", "Label=Score")
+
+    '    End If
+
+    '    '  Set series appearance 
+    '    For Each ser As Series In Chart3.Series
+    '        ser.ShadowOffset = 2
+    '        ser.BorderWidth = 3
+    '        ser.MarkerSize = 12
+    '        ser.ChartType = SeriesChartType.Column
+    '        ser.MarkerBorderColor = Color.FromArgb(64, 64, 64)
+    '        ser.Font = New Font("Trebuchet MS", 8, FontStyle.Bold)
+    '    Next
+
+    '    If dr2.Read Then
+
+    '        Chart2.Titles(0).Text = titlex
+
+    '        'line chart
+    '        Chart2.ChartAreas("ChartArea1").AxisX.Interval = 1
+
+    '        ' Show/Hide X axis end labels
+    '        Chart2.ChartAreas("ChartArea1").AxisX.LabelStyle.IsEndLabelVisible = True
+
+
+    '        Chart2.ChartAreas("ChartArea1").Area3DStyle.IsRightAngleAxes = True
+    '        Chart2.ChartAreas("ChartArea1").Area3DStyle.IsClustered = Not True
+
+    '        ' Set chart area 3D rotation 
+    '        Chart2.ChartAreas("ChartArea1").Area3DStyle.Inclination = 0
+
+    '        Chart2.ChartAreas("ChartArea1").Area3DStyle.Rotation = 0
+
+    '        '' Set axis labels angle
+    '        Chart2.ChartAreas("ChartArea1").AxisX.LabelStyle.Angle = 90
+
+    '        ' Data bind chart to a table where all rows are grouped in series by the "Name" column
+    '        Chart2.DataBindCrossTable(dr2, "PlayDate", "Score", "Score", "Label=Score")
+    '    End If
+
+    '    ' Set series appearance
+    '    Dim marker As MarkerStyle = MarkerStyle.Star4
+    '    For Each ser As Series In Chart2.Series
+    '        ser.ShadowOffset = 2
+    '        ser.BorderWidth = 3
+    '        ser.ChartType = SeriesChartType.Spline
+    '        ser.MarkerSize = 12
+    '        ser.MarkerStyle = marker
+    '        ser.MarkerBorderColor = Color.FromArgb(64, 64, 64)
+    '        ser.Font = New Font("Trebuchet MS", 8, FontStyle.Bold)
+    '        'marker += 1
+    '    Next
+
+    '    dr3.Close()
+
+    'End Sub
+
+    Private Sub GetSeriesValues(ByVal Ghinid As String)
+
+        Chart1.Series("Series1").Points.Clear()
+
+
+        Dim ser As Series = Me.Chart1.Series("Series1")
+
+        Dim dataSet As New DataSet()
+        Dim seriesTable As New DataTable(ser.Name)
+
+        seriesTable.Columns.Add(New DataColumn("No", GetType(Integer)))
+        seriesTable.Columns.Add(New DataColumn("PlayDate", GetType(String)))
+        seriesTable.Columns.Add(New DataColumn("Score", GetType(Double)))
+
+
+        Dim sSQL As String
+        sSQL = "SELECT top 20 [tb_Scorecard].[GhinID] ,[firstname] ,[lastname],(select CONVERT(VARCHAR(8), [Date], 1) AS [MM/DD/YY]) as PlayDate ,[GrandTotal] as Score FROM [tb_Scorecard],[MemberInfo] where [MemberInfo].[GhinID] = [tb_Scorecard].[GhinID] and [tb_Scorecard].[GhinID]  = '" & Ghinid & "' and [GrandTotal] > 0  order by [Date] Desc"
+        Dim count As Integer = 0
+        Dim dr1 As SqlDataReader
+        dr1 = GetDataReader(sSQL)
+        Dim titlex As String = ""
+
+        While dr1.Read
+            Chart1.Series("Series1").Points.AddXY(dr1.Item("PlayDate").ToString(), dr1.Item("Score").ToString())
+            'Dim p As DataPoint = ser.Points(count)
+            'seriesTable.Rows.Add(New Object() {count, dr1.Item("PlayDate").ToString(), dr1.Item("Score").ToString()})
+            'count = count + 1
+            titlex = dr1.Item("firstname").ToString() & " " & dr1.Item("lastname").ToString()
+        End While
+
+        Chart1.Titles(0).Text = "Most Current 20 Games for " & titlex
+        Chart1.Series("Series1").IsXValueIndexed = False
+        Chart1.ChartAreas("ChartArea1").AxisX.LabelStyle.Interval = 1
+        Chart1.ChartAreas("ChartArea1").AxisX.MajorGrid.Interval = 1
+        Chart1.ChartAreas("ChartArea1").AxisX.MajorTickMark.Interval = 1
+       
+        ' Disable axis labels auto fitting of text
+        Chart1.ChartAreas("ChartArea1").AxisX.IsLabelAutoFit = True
+
+        ' Set axis labels angle
+        Chart1.ChartAreas("ChartArea1").AxisX.LabelStyle.Angle = 45
+
+        ' Disable offset labels style
+        Chart1.ChartAreas("ChartArea1").AxisX.LabelStyle.IsStaggered = False
+
+        ' Enable X axis labels
+        Chart1.ChartAreas("ChartArea1").AxisX.LabelStyle.Enabled = True
+
+        Chart1.ChartAreas("ChartArea1").AxisX.Interval = 1
+        'Chart1.Series("Series1").ToolTip = "#VALX"
+        ' Draw as 3D Cylinder
+        Chart1.Series("ChartArea1")("DrawingStyle") = "Cylinder"
+
+
+        Dim constr As String = ConfigurationManager.ConnectionStrings("ClubSiteDB").ConnectionString
+        Dim con As New SqlConnection(constr)
+        Dim sdapair0 As New SqlDataAdapter(sSQL, con)
+        Dim dtpair0 As New DataTable()
+        sdapair0.Fill(dtpair0)
+        DataGrid1.DataSource = dtpair0
+        DataGrid1.DataBind()
+    End Sub
+
+    Public Function GetDataReader(ByVal sSql As String) As SqlDataReader
+        Dim cn As New SqlConnection(GetConnectionString())
+        cn.Open()
+        Dim cm As New SqlCommand(sSql, cn)
+        Return cm.ExecuteReader(CommandBehavior.CloseConnection)
+    End Function
+
+    Public Function GetConnectionString() As String
+
+        Dim strconnector As String = ""
+
+        strconnector = ConfigurationManager.ConnectionStrings("ClubSiteDB").ConnectionString
+
+        Return strconnector
+
+    End Function
+
+
+
+    Public Sub ExecuteSql(ByVal sSql As String)
+
+        Dim cn As New SqlConnection(GetConnectionString())
+        cn.Open()
+        Dim cm As New SqlCommand(sSql, cn)
+        cm.ExecuteNonQuery()
+        cn.Close()
+
+    End Sub
+
+
+End Class

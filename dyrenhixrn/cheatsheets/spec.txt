@@ -1,0 +1,11 @@
+
+
+# version 1.6 <br>
+# lang = EN <br>
+# build = 949 <br>
+ORDER_ENTRY https://www.interactivebrokers.com/java/classes/cheatsheet/images/ORDER_ENTRY_EN_947.png <br>
+METADATA ORDER_ENTRY Order Entry = https://www.interactivebrokers.com/en/software/tws/usersguidebook/mosaic/the_order_entry_window.htm <br>
+SCANNER https://www.interactivebrokers.com/java/classes/cheatsheet/images/SCANNER_EN_947.png <br>
+METADATA SCANNER Market Scanner = https://www.interactivebrokers.com/en/software/tws/usersguidebook/mosaic/mosaic_market_scanners.htm <br>
+WATCHLIST https://www.interactivebrokers.com/java/classes/cheatsheet/images/WATCHLIST_EN_947.png <br>
+METADATA WATCHLIST Watchlist = https://www.interactivebrokers.com/en/software/tws/usersguidebook/mosaic/the_watchlist.htm <br>

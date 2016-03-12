@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuditTrail>
+<Entry type="Acknowledged" msgId="3592376573">
+	<field tag="35" val="8"/>
+	<field tag="34" val="000008"/>
+	<field tag="43" val="N"/>
+	<field tag="52" val="20150508-15:58:38"/>
+	<field tag="11" val="*"/>
+	<field tag="17" val="59538.1431100718.0"/>
+	<field tag="150" val="0"/>
+	<field tag="20" val="3"/>
+	<field tag="39" val="0"/>
+	<field tag="55" val="*"/>
+	<field tag="38" val="0"/>
+	<field tag="44" val="nan"/>
+	<field tag="32" val="0"/>
+	<field tag="31" val="0.00"/>
+	<field tag="14" val="0"/>
+	<field tag="151" val="0"/>
+	<field tag="6" val="0"/>
+	<field tag="54" val="1"/>
+	<field tag="37" val="*"/>
+	<field tag="60" val="20150508-15:58:38"/>
+	<field tag="40" val="2"/>
+	<field tag="59" val="0"/>
+</Entry>
+<Entry type="Acknowledged" msgId="3037628719">
+	<field tag="35" val="8"/>
+	<field tag="34" val="000013"/>
+	<field tag="43" val="N"/>
+	<field tag="52" val="20150508-15:58:42"/>
+	<field tag="11" val="*"/>
+	<field tag="17" val="59538.1431100722.0"/>
+	<field tag="150" val="0"/>
+	<field tag="20" val="3"/>
+	<field tag="39" val="0"/>
+	<field tag="55" val="*"/>
+	<field tag="38" val="0"/>
+	<field tag="44" val="nan"/>
+	<field tag="32" val="0"/>
+	<field tag="31" val="0.00"/>
+	<field tag="14" val="0"/>
+	<field tag="151" val="0"/>
+	<field tag="6" val="0"/>
+	<field tag="54" val="1"/>
+	<field tag="37" val="*"/>
+	<field tag="60" val="20150508-15:58:42"/>
+	<field tag="40" val="2"/>
+	<field tag="59" val="0"/>
+</Entry>
+<Entry type="Acknowledged" msgId="576694118">
+	<field tag="35" val="8"/>
+	<field tag="34" val="000008"/>
+	<field tag="43" val="N"/>
+	<field tag="52" val="20150508-16:02:38"/>
+	<field tag="11" val="*"/>
+	<field tag="17" val="59538.1431100958.0"/>
+	<field tag="150" val="0"/>
+	<field tag="20" val="3"/>
+	<field tag="39" val="0"/>
+	<field tag="55" val="*"/>
+	<field tag="38" val="0"/>
+	<field tag="44" val="nan"/>
+	<field tag="32" val="0"/>
+	<field tag="31" val="0.00"/>
+	<field tag="14" val="0"/>
+	<field tag="151" val="0"/>
+	<field tag="6" val="0"/>
+	<field tag="54" val="1"/>
+	<field tag="37" val="*"/>
+	<field tag="60" val="20150508-16:02:38"/>
+	<field tag="40" val="2"/>
+	<field tag="59" val="0"/>
+</Entry>
+<Entry type="Acknowledged" msgId="4263558646">
+	<field tag="35" val="8"/>
+	<field tag="34" val="000015"/>
+	<field tag="43" val="N"/>
+	<field tag="52" val="20150508-16:02:42"/>
+	<field tag="11" val="*"/>
+	<field tag="17" val="59538.1431100962.0"/>
+	<field tag="150" val="0"/>
+	<field tag="20" val="3"/>
+	<field tag="39" val="0"/>
+	<field tag="55" val="*"/>
+	<field tag="38" val="0"/>
+	<field tag="44" val="nan"/>
+	<field tag="32" val="0"/>
+	<field tag="31" val="0.00"/>
+	<field tag="14" val="0"/>
+	<field tag="151" val="0"/>
+	<field tag="6" val="0"/>
+	<field tag="54" val="1"/>
+	<field tag="37" val="*"/>
+	<field tag="60" val="20150508-16:02:42"/>
+	<field tag="40" val="2"/>
+	<field tag="59" val="0"/>
+</Entry>
+</AuditTrail>

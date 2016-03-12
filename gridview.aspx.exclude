@@ -1,0 +1,66 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Default.master" AutoEventWireup="true" CodeFile="gridview.aspx.cs" Inherits="Events_Calendar" %>
+
+<%@ Register TagPrefix="Club" Namespace="ClubSite" %>
+<%@ Register TagPrefix="Club" TagName="LoginBanner" Src="LoginBanner.ascx" %>
+<%@ Register TagPrefix="Club" TagName="ImageThumbnail" Src="ImageThumbnail.ascx" %>      
+         
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+     <style type="text/css">
+
+    .HeaderStyle{
+    border:solid 1px White;
+    background-color:#81BEF7;
+    font-weight:bold;
+    text-align:center;}
+         </style>
+
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
+
+      <div id="body">
+	 
+
+        <Club:LoginBanner ID="LoginBanner1" runat="server" />
+		<div class="fullwidth">
+			<h2>Game Central- Active and Closed Games</h2> 
+		</div>
+        <div class="fullwidth">
+			
+
+    <asp:GridView ID="grdViewProducts" runat="server" AutoGenerateColumns="False" TabIndex="1"
+    Width="100%" DataSourceID="XmlDataSource1" ShowFooter="false"
+    CellPadding="4" ForeColor="Black" GridLines="Vertical"
+    BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px"
+    OnRowDataBound="grdViewProducts_RowDataBound"
+    onrowcreated="grdViewProducts_RowCreated" >
+    <RowStyle BackColor="#F7F7DE" />
+    <Columns>
+        <asp:BoundField DataField="Year" HeaderText="Year" ItemStyle-HorizontalAlign="Left" />
+        <asp:BoundField DataField="Period" HeaderText="Period" ItemStyle-HorizontalAlign="Left" />
+        <asp:BoundField DataField="AuditedBy" HeaderText="Audited By" ItemStyle-HorizontalAlign="Left" />
+        <asp:BoundField DataField="HeadOfficeDirectDebit" HeaderText="Direct" ItemStyle-HorizontalAlign="Right" />
+        <asp:BoundField DataField="HeadOfficeReferralDebit" HeaderText="Referral" ItemStyle-HorizontalAlign="Right" />
+        <asp:BoundField DataField="HeadOfficeDirectCredit" HeaderText="Direct" ItemStyle-HorizontalAlign="Right" />
+        <asp:BoundField DataField="HeadOfficeReferralCredit" HeaderText="Referral" ItemStyle-HorizontalAlign="Right" />
+        <asp:BoundField DataField="BranchOfficeReferralDebit" HeaderText="Referral" ItemStyle-HorizontalAlign="Right" />
+        <asp:BoundField DataField="BranchOfficeReferralDebit" HeaderText="Referral" ItemStyle-HorizontalAlign="Right" />
+        <asp:BoundField DataField="BranchOfficeReferralDebit" HeaderText="Referral" ItemStyle-HorizontalAlign="Right" />
+        <asp:BoundField DataField="BranchOfficeReferralDebit" HeaderText="Referral" ItemStyle-HorizontalAlign="Right" />
+    </Columns>
+     
+    <FooterStyle BackColor="#CCCC99" />
+    <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+    <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+    <HeaderStyle CssClass="HeaderStyle" />
+    <AlternatingRowStyle BackColor="White" />
+</asp:GridView>
+<asp:XmlDataSource ID="XmlDataSource1" runat="server" DataFile="App_Data/xmlfile.xml"></asp:XmlDataSource>
+
+		</div>
+   </div>       
+</asp:Content>

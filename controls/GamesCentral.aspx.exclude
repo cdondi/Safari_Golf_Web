@@ -1,0 +1,1944 @@
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Default.master" AutoEventWireup="true" CodeFile="GamesCentral.aspx.vb" Inherits="Events_Calendar" %>
+<%@ Register Src="controls\TabsControl.ascx" TagName="TabsControl" TagPrefix="tc" %>
+
+<%@ Register TagPrefix="Club" Namespace="ClubSite" %>
+<%@ Register TagPrefix="Club" TagName="LoginBanner" Src="LoginBanner.ascx" %>
+<%@ Register TagPrefix="Club" TagName="ImageThumbnail" Src="ImageThumbnail.ascx" %>      
+         
+<%@ Register TagPrefix="Club" TagName="ScorecardControlctl1" Src="ScorecardControl1.ascx" %>    
+<%@ Register TagPrefix="Club" TagName="ScorecardControlctl2" Src="ScorecardControl2.ascx" %>   
+<%@ Register TagPrefix="Club" TagName="ScorecardControlctl3" Src="ScorecardControl3.ascx" %>   
+<%@ Register TagPrefix="Club" TagName="ScorecardControlctl4" Src="ScorecardControl4.ascx" %>   
+<%@ Register TagPrefix="Club" TagName="ScorecardControlctl5" Src="ScorecardControl5.ascx" %>   
+<%@ Register TagPrefix="Club" TagName="ScorecardControlctl6" Src="ScorecardControl6.ascx" %>   
+<%@ Register TagPrefix="Club" TagName="ScorecardControlctl7" Src="ScorecardControl7.ascx" %>   
+<%@ Register TagPrefix="Club" TagName="ScorecardControlctl8" Src="ScorecardControl8.ascx" %>   
+<%@ Register TagPrefix="Club" TagName="ScorecardControlctl9" Src="ScorecardControl9.ascx" %>   
+<%@ Register TagPrefix="Club" TagName="ScorecardControlctl10" Src="ScorecardControl10.ascx" %>   
+<%@ Register TagPrefix="Club" TagName="ScorecardControlctl11" Src="ScorecardControl11.ascx" %>   
+<%@ Register TagPrefix="Club" TagName="ScorecardControlctl12" Src="ScorecardControl12.ascx" %>   
+   
+<asp:Content ID="Content2" ContentPlaceHolderID="head" Runat="Server"> 
+    <link href="css/TabsControl.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body {
+	        font-family: Arial, Helvetica, sans-serif;
+	        font-size: 12px;
+	        color: #404040;
+	        background-color: #FFF;
+        }
+
+        :focus {
+	        -moz-outline-style: none;
+        }
+        
+        div.huge
+        {
+            font-weight: bolder;
+            font-family: Arial;
+            font-size:50px;
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid black;
+        }
+        
+        span.leftIndent
+        {
+            padding-left: 15px;
+        }
+        
+        #microsoftDiv
+        {            
+            color: blue;
+        }
+        
+        #facebookDiv
+        {            
+            color: green;
+        }
+        
+        #appleDiv
+        {            
+            color: red;
+        }
+        
+        span.codeExample
+        {
+            color: Blue;
+        }
+        .auto-style1 {
+            color: #FF3300;
+            height: 32px;
+        }
+    </style>
+
+
+      <script type = "text/javascript">
+<!--
+          function Check_Click(objRef) {
+              //Get the Row based on checkbox
+              var row = objRef.parentNode.parentNode;
+
+              //Get the reference of GridView
+              var GridView = row.parentNode;
+
+              //Get all input elements in Gridview
+              var inputList = GridView.getElementsByTagName("input");
+
+              for (var i = 0; i < inputList.length; i++) {
+                  //The First element is the Header Checkbox
+                  var headerCheckBox = inputList[0];
+
+                  //Based on all or none checkboxes
+                  //are checked check/uncheck Header Checkbox
+                  var checked = true;
+                  if (inputList[i].type == "checkbox" && inputList[i] != headerCheckBox) {
+                      if (!inputList[i].checked) {
+                          checked = false;
+                          break;
+                      }
+                  }
+              }
+              headerCheckBox.checked = checked;
+
+          }
+          function checkAll(objRef) {
+              var GridView = objRef.parentNode.parentNode.parentNode;
+              var inputList = GridView.getElementsByTagName("input");
+              for (var i = 0; i < inputList.length; i++) {
+                  var row = inputList[i].parentNode.parentNode;
+                  if (inputList[i].type == "checkbox" && objRef != inputList[i]) {
+                      if (objRef.checked) {
+                          inputList[i].checked = true;
+                      }
+                      else {
+                          if (row.rowIndex % 2 == 0) {
+                              row.style.backgroundColor = "#C2D69B";
+                          }
+                          else {
+                              row.style.backgroundColor = "white";
+                          }
+                          inputList[i].checked = false;
+                      }
+                  }
+              }
+          }
+    //-->
+</script>
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        //This is the page specific on tab click function. You can manipulate page elements here.
+        //For example, show some area and hide the others
+        function OnTabClick(index) {
+            switch (index) {
+                case 0:
+                    $("#TabDiv0").show();
+                    $("#TabDiv1").hide();
+                    $("#TabDiv2").hide();
+                    $("#TabDiv3").hide(); 
+                    break;
+                case 1:
+                    $("#TabDiv0").hide();
+                    $("#TabDiv1").show();
+                    $("#TabDiv2").hide();
+                    $("#TabDiv3").hide(); 
+                    break;
+                case 2:
+                    $("#TabDiv0").hide();
+                    $("#TabDiv1").hide();
+                    $("#TabDiv2").show();
+                    $("#TabDiv3").hide(); 
+                    break;
+                case 3:
+                    $("#TabDiv0").hide();
+                    $("#TabDiv1").hide();
+                    $("#TabDiv2").hide();
+                    $("#TabDiv3").show(); 
+                    break; 
+            }
+        }
+
+        function OnTabScoreClick(index) {
+            switch (index) {
+                case 0:
+                    $("#TeeGroup0").show();
+                    $("#TeeGroup1").hide();
+                    $("#TeeGroup2").hide();
+                    $("#TeeGroup3").hide();
+                    $("#TeeGroup4").hide();
+                    $("#TeeGroup5").hide();
+                    $("#TeeGroup6").hide();
+                    $("#TeeGroup7").hide();
+                    $("#TeeGroup8").hide();
+                    $("#TeeGroup9").hide();
+                    $("#TeeGroup10").hide();
+                    $("#TeeGroup11").hide(); 
+                    break;
+                case 1:
+                    $("#TeeGroup0").hide();
+                    $("#TeeGroup1").show();
+                    $("#TeeGroup2").hide();
+                    $("#TeeGroup3").hide();
+                    $("#TeeGroup4").hide();
+                    $("#TeeGroup5").hide();
+                    $("#TeeGroup6").hide();
+                    $("#TeeGroup7").hide();
+                    $("#TeeGroup8").hide();
+                    $("#TeeGroup9").hide();
+                    $("#TeeGroup10").hide();
+                    $("#TeeGroup11").hide();
+                    break;
+                case 2:
+                    $("#TeeGroup0").hide();
+                    $("#TeeGroup1").hide();
+                    $("#TeeGroup2").show();
+                    $("#TeeGroup3").hide();
+                    $("#TeeGroup4").hide();
+                    $("#TeeGroup5").hide();
+                    $("#TeeGroup6").hide();
+                    $("#TeeGroup7").hide();
+                    $("#TeeGroup8").hide();
+                    $("#TeeGroup9").hide();
+                    $("#TeeGroup10").hide();
+                    $("#TeeGroup11").hide();
+                    break;
+                case 3:
+                    $("#TeeGroup0").hide();
+                    $("#TeeGroup1").hide();
+                    $("#TeeGroup2").hide();
+                    $("#TeeGroup3").show();
+                    $("#TeeGroup4").hide();
+                    $("#TeeGroup5").hide();
+                    $("#TeeGroup6").hide();
+                    $("#TeeGroup7").hide();
+                    $("#TeeGroup8").hide();
+                    $("#TeeGroup9").hide();
+                    $("#TeeGroup10").hide();
+                    $("#TeeGroup11").hide();
+                    break;
+                case 4:
+                    $("#TeeGroup0").hide();
+                    $("#TeeGroup1").hide();
+                    $("#TeeGroup2").hide();
+                    $("#TeeGroup3").hide();
+                    $("#TeeGroup4").show();
+                    $("#TeeGroup5").hide();
+                    $("#TeeGroup6").hide();
+                    $("#TeeGroup7").hide();
+                    $("#TeeGroup8").hide();
+                    $("#TeeGroup9").hide();
+                    $("#TeeGroup10").hide();
+                    $("#TeeGroup11").hide();
+                    break;
+                case 5:
+                    $("#TeeGroup0").hide();
+                    $("#TeeGroup1").hide();
+                    $("#TeeGroup2").hide();
+                    $("#TeeGroup3").hide();
+                    $("#TeeGroup4").hide();
+                    $("#TeeGroup5").show();
+                    $("#TeeGroup6").hide();
+                    $("#TeeGroup7").hide();
+                    $("#TeeGroup8").hide();
+                    $("#TeeGroup9").hide();
+                    $("#TeeGroup10").hide();
+                    $("#TeeGroup11").hide();
+                    break;
+                case 6:
+                    $("#TeeGroup0").hide();
+                        $("#TeeGroup1").hide();  
+                        $("#TeeGroup2").hide();
+                        $("#TeeGroup3").hide();
+                        $("#TeeGroup4").hide();
+                        $("#TeeGroup5").hide();
+                        $("#TeeGroup6").show();
+                        $("#TeeGroup7").hide();
+                        $("#TeeGroup8").hide();
+                        $("#TeeGroup9").hide();
+                        $("#TeeGroup10").hide();
+                        $("#TeeGroup11").hide();
+                        break;
+                case 7:
+                    $("#TeeGroup0").hide();
+                    $("#TeeGroup1").hide();
+                    $("#TeeGroup2").hide();
+                    $("#TeeGroup3").hide();
+                    $("#TeeGroup4").hide();
+                    $("#TeeGroup5").hide();
+                    $("#TeeGroup6").hide();
+                    $("#TeeGroup7").show();
+                    $("#TeeGroup8").hide();
+                    $("#TeeGroup9").hide();
+                    $("#TeeGroup10").hide();
+                    $("#TeeGroup11").hide();
+                    break;
+                case 8:
+                    $("#TeeGroup0").hide();
+                    $("#TeeGroup1").hide();
+                    $("#TeeGroup2").hide();
+                    $("#TeeGroup3").hide();
+                    $("#TeeGroup4").hide();
+                    $("#TeeGroup5").hide();
+                    $("#TeeGroup6").hide();
+                    $("#TeeGroup7").hide();
+                    $("#TeeGroup8").show();
+                    $("#TeeGroup9").hide();
+                    $("#TeeGroup10").hide();
+                    $("#TeeGroup11").hide();
+                    break;
+                case 9:
+                    $("#TeeGroup0").hide();
+                    $("#TeeGroup1").hide();
+                    $("#TeeGroup2").hide();
+                    $("#TeeGroup3").hide();
+                    $("#TeeGroup4").hide();
+                    $("#TeeGroup5").hide();
+                    $("#TeeGroup6").hide();
+                    $("#TeeGroup7").hide();
+                    $("#TeeGroup8").hide();
+                    $("#TeeGroup9").show();
+                    $("#TeeGroup10").hide();
+                    $("#TeeGroup11").hide();
+                    break;
+                case 10:
+                    $("#TeeGroup0").hide();
+                    $("#TeeGroup1").hide();
+                    $("#TeeGroup2").hide();
+                    $("#TeeGroup3").hide();
+                    $("#TeeGroup4").hide();
+                    $("#TeeGroup5").hide();
+                    $("#TeeGroup6").hide();
+                    $("#TeeGroup7").hide();
+                    $("#TeeGroup8").hide();
+                    $("#TeeGroup9").hide();
+                    $("#TeeGroup10").show();
+                    $("#TeeGroup11").hide();
+                    break;
+                case 11:
+                    $("#TeeGroup0").hide();
+                    $("#TeeGroup1").hide();
+                    $("#TeeGroup2").hide();
+                    $("#TeeGroup3").hide();
+                    $("#TeeGroup4").hide();
+                    $("#TeeGroup5").hide();
+                    $("#TeeGroup6").hide();
+                    $("#TeeGroup7").hide();
+                    $("#TeeGroup8").hide();
+                    $("#TeeGroup9").hide();
+                    $("#TeeGroup10").hide();
+                    $("#TeeGroup11").show();
+                    break;
+            }
+        }
+
+        /*
+        //Example of the use of client object
+        Tabs1.ClickTab(1); //raise a click on the tab on index 1
+        Tabs1.ClickTabByText("Apple"); //raise a click on the tab with text "Apple"
+        Tabs1.ShowTabArray(); //Show the whole tab control
+        Tabs1.HideTabArray(); //Hide the whole tab control
+        Tabs1.ShowTabByIndex(1); //Show the tab on index 1
+        Tabs1.HideTabByIndex(1); //Hide the tab on index 1
+        Tabs1.ShowTabByText("Apple"); //Show the tab with text "Apple"
+        Tabs1.HideTabByText("Apple"); //Hide the tab with text "Apple"
+        */
+    </script>
+        <script type = "text/javascript">
+<!--
+     
+    function expandcollapse(obj, row) {
+        var div = document.getElementById(obj);
+        var img = document.getElementById('img' + obj);
+
+        if (div.style.display == "none") {
+            div.style.display = "block";
+            if (row == 'alt') {
+                img.src = "minus.gif";
+            }
+            else {
+                img.src = "minus.gif";
+            }
+            img.alt = "Close to view other Players";
+        }
+        else {
+            div.style.display = "none";
+            if (row == 'alt') {
+                img.src = "plus.gif";
+            }
+            else {
+                img.src = "plus.gif";
+            }
+            img.alt = "Expand to show Holes";
+        }
+    }
+
+    //-->
+</script>
+ <style type="text"css">
+.block {
+display: block;
+}
+</style>
+
+</asp:Content>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div id="body">
+	
+        <Club:LoginBanner ID="LoginBanner1" runat="server" />
+		<div class="fullwidth">
+			<h2>Game Central- Everything about Games</h2> 
+		</div>
+        <div class="fullwidth">
+			
+
+        <tc:TabsControl ID="Tabs1" runat="server" />
+             
+        <div id="TabDiv0"  style="font-family: Verdana; font-size: x-small; font-weight: normal">
+            
+			<h2>Course Information</h2>
+
+            <div id="columnleft1">
+			<a name="content_start" id="content_start"></a>
+			<div class="leftblock">
+				  
+				<h2>Courses</h2>
+                		 
+				<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ClubSiteDB %>"
+					SelectCommand="PagedLocationsList" SelectCommandType="StoredProcedure" OnSelected="SqlDataSource1_Selected">
+					<SelectParameters>
+						<asp:ControlParameter Name="pageNum" ControlID="pn1" PropertyName="SelectedPage" />
+						<asp:Parameter DefaultValue="20" Name="pageSize" Type="Int32" />
+						<asp:Parameter Name="pageCount" Direction="ReturnValue" Type="Int32" />
+					</SelectParameters>
+				</asp:SqlDataSource>
+				<div class="newscrumbs">
+					Page:
+					<Club:PageNumberer ID="pn1" runat="server" DisplayedPages="7" CssClass="PageNumbers"
+						OnSelectedPageChanged="pn1_SelectedPageChanged" />
+				</div>
+				<div class="dashedline">
+				</div>
+				<!-- begin news item -->
+				<asp:Repeater ID="Repeater1" runat="server" DataSourceID="SqlDataSource1">
+					<ItemTemplate>
+						<div>  
+							<h3>
+								<a href='<%# "GamesCentral.aspx?locationid=" + Convert.ToString(Eval("ID"))%>'>
+									<asp:Label ID="titleLabel" runat="server" Text='<%# Eval("title") %>' />
+								</a>
+							</h3> 
+						</div>
+					</ItemTemplate>
+				</asp:Repeater> 
+
+                </div> 
+             
+                </div> 
+			
+            <div id="columnright1">
+			 
+			<div class="rightblock">
+                
+				<h2>Course Hole Details</h2>
+                      
+                   
+
+			      <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:ClubSiteDB %>"
+		                SelectCommand="SELECT [Holeid], [Ordinal],[Yardage],[Par],[Handicap]  FROM [tb_Hole] where [LocationId] = @LocationId  order by [ordinal] asc">
+		                <SelectParameters>
+			                <asp:Parameter Type="Int32" DefaultValue="0" Name="LocationId"></asp:Parameter>
+		                </SelectParameters>
+	                      </asp:SqlDataSource>
+                 
+                        <asp:GridView ID="LocationHoles" runat="server"  DataSourceID="SqlDataSource4"
+                        AutoGenerateColumns = "False" Font-Names = "Arial" 
+                        Font-Size = "11pt" EmptyDataText = "No Records returned" EnableModelValidation="True"  >
+                        <Columns>
+                                                                
+                            <asp:BoundField DataField = "Ordinal" HeaderText = "Hole Number" />
+                            <asp:BoundField DataField = "Yardage" HeaderText = "Yardage" />
+                            <asp:BoundField DataField = "Par" HeaderText = "Par" />
+                            <asp:BoundField DataField = "Handicap" HeaderText = "Hole Handicap"  /> 
+
+                            </Columns>
+                        </asp:GridView>
+                          
+                
+				<div class="dashedline">
+				</div>
+                
+				<h2>Course Rating</h2>
+
+			      <asp:SqlDataSource ID="SqlGolfRating" runat="server" ConnectionString="<%$ ConnectionStrings:ClubSiteDB %>"
+		                SelectCommand="SELECT [RatingId],[LocationId],[Rating] ,[Slope] ,[Differential] FROM [tb_CourseRating] where [LocationId] = @LocationId  order by [RatingId]">
+		                <SelectParameters>
+			                <asp:Parameter Type="Int32" DefaultValue="0" Name="LocationId"></asp:Parameter>
+		                </SelectParameters>
+	                      </asp:SqlDataSource>
+                 
+                        <asp:GridView ID="GridView2" runat="server"  DataSourceID="SqlGolfRating"
+                        AutoGenerateColumns = "False" Font-Names = "Arial" 
+                        Font-Size = "11pt" EmptyDataText = "No Records returned" EnableModelValidation="True"  >
+                        <Columns>
+                                                                
+                            <asp:BoundField DataField = "Rating" HeaderText = "Rating" />
+                            <asp:BoundField DataField = "Slope" HeaderText = "Yardage" />
+                            <asp:BoundField DataField = "Differential" HeaderText = "Differential" /> 
+
+                            </Columns>
+                        </asp:GridView> 
+
+                </div>
+		     
+            </div>          
+
+        </div>
+       
+ 
+        <div id="TabDiv1"   style="font-family: Verdana; font-size: x-small; font-weight: normal; display: none">
+             
+			<h2>Tee Pairing</h2>
+            <div id="columnleft">			 
+			<div class="leftblock">
+				 
+				<h2>Players</h2>
+                
+                         <asp:GridView ID="gvAll" runat="server" 
+                            AutoGenerateColumns = "False" Font-Names = "Arial" 
+                            Font-Size = "11pt"   AllowPaging ="false"   
+                              EmptyDataText = "No Records Selected" EnableModelValidation="True"  GridLines="both" > 
+                              
+                            <Columns>
+                            <asp:TemplateField>
+                                <HeaderTemplate>
+                                    <asp:CheckBox ID="chkAll" runat="server" onclick = "checkAll(this);" AutoPostBack = "true"  OnCheckedChanged = "CheckBox_CheckChanged"/>
+                                </HeaderTemplate> 
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="chk" runat="server" onclick = "Check_Click(this)" AutoPostBack = "true"  OnCheckedChanged = "CheckBox_CheckChanged" />
+                                </ItemTemplate>
+                            </asp:TemplateField> 
+                                                                    
+                            <asp:BoundField DataField = "GhinID" HeaderText = "Ghin ID" HtmlEncode = "false" />
+                            <asp:BoundField DataField = "firstname" HeaderText = "F. Name" HtmlEncode = "false" />
+                            <asp:BoundField DataField = "lastname" HeaderText = "L. Name" HtmlEncode = "false" />
+                            <asp:BoundField DataField = "Tournamenthandicap" HeaderText = "T. Cap" HtmlEncode = "false" />
+                            <asp:BoundField DataField = "Ghinhandicap" HeaderText = "G. Cap" HtmlEncode = "false" />
+
+                            </Columns>  
+                        </asp:GridView> 
+                
+				<div class="dashedline">
+				</div>
+                Note: T. Cap is Tournament Handicap & G. Cap is Ghin Handicap
+				<div class="dashedline">
+				</div>
+			</div>
+		   </div>
+            
+		   <div id="columnright">
+			<div class="rightblock">
+                
+				<h2>Tee Order</h2>
+                 
+
+                        <asp:RadioButton ID="RadioSelected1" runat="server" Text="Tee Group 1" GroupName="TeeGroups" />  
+                                                             
+                        <asp:GridView ID="gvSelected1" runat="server" 
+                        AutoGenerateColumns = "False" Font-Names = "Arial" 
+                        Font-Size = "11pt" EmptyDataText = "No Records Selected" EnableModelValidation="True"  >
+                        <Columns>
+                                                                
+                            <asp:BoundField DataField = "GhinID" HeaderText = "Ghin ID" />
+                            <asp:BoundField DataField = "firstname" HeaderText = "First Name" />
+                            <asp:BoundField DataField = "lastname" HeaderText = "Last Name" />
+                            <asp:BoundField DataField = "Tournamenthandicap" HeaderText = "T. Handicap"  />
+                            <asp:BoundField DataField = "Ghinhandicap" HeaderText = "G. Handicap" />
+
+                            </Columns>
+                        </asp:GridView>
+                                                                                                                        
+                        <asp:RadioButton ID="Clear1" runat="server" Text="Clear Tee Group 1" GroupName="ClearTeeGroups"  AutoPostBack = "true"  OnCheckedChanged = "Clear_CheckChanged"  />   
+                    
+                
+				<div class="dashedline">
+				</div>
+
+                        <asp:RadioButton ID="RadioSelected2"   runat="server" Text="Tee Group 2" GroupName="TeeGroups" />  
+
+
+                        <asp:GridView ID="gvSelected2" runat="server" 
+                        AutoGenerateColumns = "False" Font-Names = "Arial" 
+                        Font-Size = "11pt" EmptyDataText = "No Records Selected" EnableModelValidation="True"  >
+                        <Columns>
+                                                                
+                            <asp:BoundField DataField = "GhinID" HeaderText = "Ghin ID" />
+                            <asp:BoundField DataField = "firstname" HeaderText = "First Name" />
+                            <asp:BoundField DataField = "lastname" HeaderText = "Last Name" />
+                            <asp:BoundField DataField = "Tournamenthandicap" HeaderText = "T. Handicap"  />
+                            <asp:BoundField DataField = "Ghinhandicap" HeaderText = "G. Handicap" />
+
+                            </Columns>
+                        </asp:GridView>
+                                                                                                                        
+                        <asp:RadioButton ID="Clear2" runat="server" Text="Clear Tee Group 2" GroupName="ClearTeeGroups"  AutoPostBack = "true"  OnCheckedChanged = "Clear_CheckChanged"  />  
+                                                            
+                           
+                
+				<div class="dashedline">
+				</div>
+                                                            
+                        <asp:RadioButton ID="RadioSelected3" runat="server" Text="Tee Group 3" GroupName="TeeGroups" />  
+
+
+                        <asp:GridView ID="gvSelected3" runat="server" 
+                        AutoGenerateColumns = "False" Font-Names = "Arial" 
+                        Font-Size = "11pt" EmptyDataText = "No Records Selected" EnableModelValidation="True"  >
+                        <Columns>
+                                                                
+                            <asp:BoundField DataField = "GhinID" HeaderText = "Ghin ID" />
+                            <asp:BoundField DataField = "firstname" HeaderText = "First Name" />
+                            <asp:BoundField DataField = "lastname" HeaderText = "Last Name" />
+                            <asp:BoundField DataField = "Tournamenthandicap" HeaderText = "T. Handicap"  />
+                            <asp:BoundField DataField = "Ghinhandicap" HeaderText = "G. Handicap" />
+
+                            </Columns>
+                        </asp:GridView>
+                                                                                                                        
+                        <asp:RadioButton ID="Clear3" runat="server" Text="Clear Tee Group 3" GroupName="ClearTeeGroups"  AutoPostBack = "true"  OnCheckedChanged = "Clear_CheckChanged"  />  
+
+                            
+                
+				<div class="dashedline">
+				</div>
+                             
+                        <asp:RadioButton ID="RadioSelected4" runat="server" Text="Tee Group 4" GroupName="TeeGroups" />  
+
+
+                        <asp:GridView ID="gvSelected4" runat="server" 
+                        AutoGenerateColumns = "False" Font-Names = "Arial" 
+                        Font-Size = "11pt" EmptyDataText = "No Records Selected" EnableModelValidation="True"  >
+                        <Columns>
+                                                                
+                            <asp:BoundField DataField = "GhinID" HeaderText = "Ghin ID" />
+                            <asp:BoundField DataField = "firstname" HeaderText = "First Name" />
+                            <asp:BoundField DataField = "lastname" HeaderText = "Last Name" />
+                            <asp:BoundField DataField = "Tournamenthandicap" HeaderText = "T. Handicap"  />
+                            <asp:BoundField DataField = "Ghinhandicap" HeaderText = "G. Handicap" />
+
+                            </Columns>
+                        </asp:GridView>
+                                                                                                                        
+                        <asp:RadioButton ID="Clear4" runat="server" Text="Clear Tee Group 4" GroupName="ClearTeeGroups"  AutoPostBack = "true"  OnCheckedChanged = "Clear_CheckChanged"  />  
+
+                    
+                    
+                
+				<div class="dashedline">
+				</div>" >
+
+                        <asp:RadioButton ID="RadioSelected5" runat="server" Text="Tee Group 5" GroupName="TeeGroups" />  
+                                                             
+                        <asp:GridView ID="gvSelected5" runat="server" 
+                        AutoGenerateColumns = "False" Font-Names = "Arial" 
+                        Font-Size = "11pt" EmptyDataText = "No Records Selected" EnableModelValidation="True"  >
+                        <Columns>
+                                                                
+                            <asp:BoundField DataField = "GhinID" HeaderText = "Ghin ID" />
+                            <asp:BoundField DataField = "firstname" HeaderText = "First Name" />
+                            <asp:BoundField DataField = "lastname" HeaderText = "Last Name" />
+                            <asp:BoundField DataField = "Tournamenthandicap" HeaderText = "T. Handicap"  />
+                            <asp:BoundField DataField = "Ghinhandicap" HeaderText = "G. Handicap" />
+
+                            </Columns>
+                        </asp:GridView>
+                                                                                                                        
+                        <asp:RadioButton ID="Clear5" runat="server" Text="Clear Tee Group 5" GroupName="ClearTeeGroups"  AutoPostBack = "true"  OnCheckedChanged = "Clear_CheckChanged"  />  
+
+                           
+                
+				<div class="dashedline">
+				</div>
+
+
+                        <asp:RadioButton ID="RadioSelected6" runat="server" Text="Tee Group 6" GroupName="TeeGroups" />  
+
+
+                        <asp:GridView ID="gvSelected6" runat="server" 
+                        AutoGenerateColumns = "False" Font-Names = "Arial" 
+                        Font-Size = "11pt" EmptyDataText = "No Records Selected" EnableModelValidation="True"  >
+                        <Columns>
+                                                                
+                            <asp:BoundField DataField = "GhinID" HeaderText = "Ghin ID" />
+                            <asp:BoundField DataField = "firstname" HeaderText = "First Name" />
+                            <asp:BoundField DataField = "lastname" HeaderText = "Last Name" />
+                            <asp:BoundField DataField = "Tournamenthandicap" HeaderText = "T. Handicap"  />
+                            <asp:BoundField DataField = "Ghinhandicap" HeaderText = "G. Handicap" />
+
+                            </Columns>
+                        </asp:GridView>
+                                                                                                                        
+                        <asp:RadioButton ID="Clear6" runat="server" Text="Clear Tee Group 6" GroupName="ClearTeeGroups"  AutoPostBack = "true"  OnCheckedChanged = "Clear_CheckChanged"  />  
+                                                               
+                       
+                            
+                
+				<div class="dashedline">
+				</div>
+                                                          
+                        <asp:RadioButton ID="RadioSelected7" runat="server" Text="Tee Group 7" GroupName="TeeGroups" />  
+
+
+                        <asp:GridView ID="gvSelected7" runat="server" 
+                        AutoGenerateColumns = "False" Font-Names = "Arial" 
+                        Font-Size = "11pt" EmptyDataText = "No Records Selected" EnableModelValidation="True"  >
+                        <Columns>
+                                                                
+                            <asp:BoundField DataField = "GhinID" HeaderText = "Ghin ID" />
+                            <asp:BoundField DataField = "firstname" HeaderText = "First Name" />
+                            <asp:BoundField DataField = "lastname" HeaderText = "Last Name" />
+                            <asp:BoundField DataField = "Tournamenthandicap" HeaderText = "T. Handicap"  />
+                            <asp:BoundField DataField = "Ghinhandicap" HeaderText = "G. Handicap" />
+
+                            </Columns>
+                        </asp:GridView>
+                                                                                                                        
+                        <asp:RadioButton ID="Clear7" runat="server" Text="Clear Tee Group 7" GroupName="ClearTeeGroups"  AutoPostBack = "true"  OnCheckedChanged = "Clear_CheckChanged"  />  
+
+                       
+        
+                
+				<div class="dashedline">
+				</div>
+
+
+                        <asp:RadioButton ID="RadioSelected8" runat="server" Text="Tee Group 8" GroupName="TeeGroups" />  
+
+
+                        <asp:GridView ID="gvSelected8" runat="server" 
+                        AutoGenerateColumns = "False" Font-Names = "Arial" 
+                        Font-Size = "11pt" EmptyDataText = "No Records Selected" EnableModelValidation="True"  >
+                        <Columns>
+                                                                
+                            <asp:BoundField DataField = "GhinID" HeaderText = "Ghin ID" />
+                            <asp:BoundField DataField = "firstname" HeaderText = "First Name" />
+                            <asp:BoundField DataField = "lastname" HeaderText = "Last Name" />
+                            <asp:BoundField DataField = "Tournamenthandicap" HeaderText = "T. Handicap"  />
+                            <asp:BoundField DataField = "Ghinhandicap" HeaderText = "G. Handicap" />
+
+                            </Columns>
+                        </asp:GridView>
+                                                                                                                        
+                        <asp:RadioButton ID="Clear8" runat="server" Text="Clear Tee Group 8" GroupName="ClearTeeGroups"  AutoPostBack = "true"  OnCheckedChanged = "Clear_CheckChanged"  />  
+
+                    
+                
+				<div class="dashedline">
+				</div>
+
+
+                        <asp:RadioButton ID="RadioSelected9" runat="server" Text="Tee Group 9" GroupName="TeeGroups" />  
+                                                             
+                        <asp:GridView ID="gvSelected9" runat="server" 
+                        AutoGenerateColumns = "False" Font-Names = "Arial" 
+                        Font-Size = "11pt" EmptyDataText = "No Records Selected" EnableModelValidation="True"  >
+                        <Columns>
+                                                                
+                            <asp:BoundField DataField = "GhinID" HeaderText = "Ghin ID" />
+                            <asp:BoundField DataField = "firstname" HeaderText = "First Name" />
+                            <asp:BoundField DataField = "lastname" HeaderText = "Last Name" />
+                            <asp:BoundField DataField = "Tournamenthandicap" HeaderText = "T. Handicap"  />
+                            <asp:BoundField DataField = "Ghinhandicap" HeaderText = "G. Handicap" />
+
+                            </Columns>
+                        </asp:GridView>
+                                                                                                                        
+                        <asp:RadioButton ID="Clear9" runat="server" Text="Clear Tee Group 9" GroupName="ClearTeeGroups"  AutoPostBack = "true"  OnCheckedChanged = "Clear_CheckChanged"  />  
+
+                           
+                
+				<div class="dashedline">
+				</div>
+                     
+                 
+
+                        <asp:RadioButton ID="RadioSelected10" runat="server" Text="Tee Group 10" GroupName="TeeGroups" />  
+
+
+                        <asp:GridView ID="gvSelected10" runat="server" 
+                        AutoGenerateColumns = "False" Font-Names = "Arial" 
+                        Font-Size = "11pt" EmptyDataText = "No Records Selected" EnableModelValidation="True"  >
+                        <Columns>
+                                                                
+                            <asp:BoundField DataField = "GhinID" HeaderText = "Ghin ID" />
+                            <asp:BoundField DataField = "firstname" HeaderText = "First Name" />
+                            <asp:BoundField DataField = "lastname" HeaderText = "Last Name" />
+                            <asp:BoundField DataField = "Tournamenthandicap" HeaderText = "T. Handicap"  />
+                            <asp:BoundField DataField = "Ghinhandicap" HeaderText = "G. Handicap" />
+
+                            </Columns>
+                        </asp:GridView>
+                                                                                                                        
+                        <asp:RadioButton ID="Clear10" runat="server" Text="Clear Tee Group 10" GroupName="ClearTeeGroups"  AutoPostBack = "true"  OnCheckedChanged = "Clear_CheckChanged"  />  
+                                                              
+                           
+                
+				<div class="dashedline">
+				</div>
+                                                            
+                        <asp:RadioButton ID="RadioSelected11" runat="server" Text="Tee Group 11" GroupName="TeeGroups" />  
+
+
+                        <asp:GridView ID="gvSelected11" runat="server" 
+                        AutoGenerateColumns = "False" Font-Names = "Arial" 
+                        Font-Size = "11pt" EmptyDataText = "No Records Selected" EnableModelValidation="True"  >
+                        <Columns>
+                                                                
+                            <asp:BoundField DataField = "GhinID" HeaderText = "Ghin ID" />
+                            <asp:BoundField DataField = "firstname" HeaderText = "First Name" />
+                            <asp:BoundField DataField = "lastname" HeaderText = "Last Name" />
+                            <asp:BoundField DataField = "Tournamenthandicap" HeaderText = "T. Handicap"  />
+                            <asp:BoundField DataField = "Ghinhandicap" HeaderText = "G. Handicap" />
+
+                            </Columns>
+                        </asp:GridView>
+                                                                                                                        
+                        <asp:RadioButton ID="Clear11" runat="server" Text="Clear Tee Group 11" GroupName="ClearTeeGroups"  AutoPostBack = "true"  OnCheckedChanged = "Clear_CheckChanged"  />  
+
+                         
+                             
+                
+				<div class="dashedline">
+				</div>
+
+                        <asp:RadioButton ID="RadioSelected12" runat="server" Text="Tee Group 12" GroupName="TeeGroups" />  
+
+
+                        <asp:GridView ID="gvSelected12" runat="server" 
+                        AutoGenerateColumns = "False" Font-Names = "Arial" 
+                        Font-Size = "11pt" EmptyDataText = "No Records Selected" EnableModelValidation="True"  >
+                        <Columns>
+                                                                
+                            <asp:BoundField DataField = "GhinID" HeaderText = "Ghin ID" />
+                            <asp:BoundField DataField = "firstname" HeaderText = "First Name" />
+                            <asp:BoundField DataField = "lastname" HeaderText = "Last Name" />
+                            <asp:BoundField DataField = "Tournamenthandicap" HeaderText = "T. Handicap"  />
+                            <asp:BoundField DataField = "Ghinhandicap" HeaderText = "G. Handicap" />
+
+                            </Columns>
+                        </asp:GridView>
+                                                                                                                        
+                        <asp:RadioButton ID="Clear12" runat="server" Text="Clear Tee Group 12" GroupName="ClearTeeGroups"  AutoPostBack = "true"  OnCheckedChanged = "Clear_CheckChanged"  />  
+                    
+                
+				<div class="dashedline">
+				</div>
+                 
+                     <asp:Button ID="btnSavePairing" Text='Save Pairing' runat="server"></asp:Button> &nbsp;&nbsp; <asp:Button ID="EmailPairing" Text='Send Email for Pairing' runat="server"></asp:Button>
+     
+			</div>
+		   </div>
+                         
+        </div>
+
+        <div id="TabDiv2"  style="font-family: Verdana; font-size: x-small; font-weight: normal; display: none">
+            
+				<h2>ScoreCards - Grouped by Tee Order</h2>
+                
+                <tc:TabsControl ID="Tabs2" runat="server" />
+                <div id="TeeGroup0"  style="font-family: Verdana; font-size: x-small; font-weight: normal"> 
+                       Tee Group 1<br />
+                    
+				<div class="dashedline">
+				</div>
+                                             
+                	
+                	<asp:SqlDataSource ID="SqlDataSourceCourseDetails1" runat="server" ConnectionString="<%$ ConnectionStrings:ClubSiteDB %>"
+		                SelectCommand="Select 'Par' as descr, * from (SELECT [Ordinal],[Par] FROM [tb_Hole] where [LocationId] = @LocationId ) as s PIVOT (max(Par) FOR [Ordinal] IN ([1], [2], [3],[4],[5],[6],[7],[8],[9],[10],[11], [12], [13],[14],[15],[16],[17],[18]))AS pvt union Select 'HCP' as descr,  * from (SELECT [Ordinal],[Yardage] FROM [tb_Hole] where [LocationId] = @LocationId ) as s PIVOT (max(Yardage) FOR [Ordinal] IN ([1], [2], [3],[4],[5],[6],[7],[8],[9],[10],[11], [12], [13],[14],[15],[16],[17],[18]))AS pvt union Select 'Yards' as descr,  * from (SELECT [Ordinal],[Handicap] FROM [tb_Hole] where [LocationId] = @LocationId ) as s PIVOT (max(Handicap) FOR [Ordinal] IN ([1], [2], [3],[4],[5],[6],[7],[8],[9],[10],[11], [12], [13],[14],[15],[16],[17],[18]))AS pvt">
+		                <SelectParameters>
+			                <asp:Parameter Type="Int32" DefaultValue="1" Name="LocationId"></asp:Parameter>
+		                </SelectParameters>
+	                </asp:SqlDataSource>
+
+                    <asp:GridView ID="SQLGridViewCourseDetails1" AutoGenerateColumns="true" Font-Size="Small"
+                                Font-Names="Verdana" runat="server" GridLines="Both"  
+                                BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" > 
+                   </asp:GridView>  
+                           
+                	<asp:SqlDataSource ID="SqlDataSourceScore1" runat="server" ConnectionString="<%$ ConnectionStrings:ClubSiteDB %>"
+		                SelectCommand="SELECT [ScorecardId], [tb_Scorecard].[GhinID] ,[LocationID] ,[tb_Scorecard].[PairingID] ,[tb_Scorecard].[Date] ,[tb_Scorecard].[memberid],[memberinfo].[firstname] as firstname,[memberinfo].[lastname] as lastname,[Score1] ,[Score2] ,[Score3] ,[Score4] ,[Score5]   ,[Score6]  ,[Score7] ,[Score8]  ,[Score9] ,[Score10]  ,[ScoreTotalout]   ,[Score11] ,[Score12]  ,[Score13],[Score14]   ,[Score15]    ,[Score16] ,[Score17]  ,[Score18] ,[ScoreTotalin] ,[GrandTotal],[memberinfo].[TournamentHandicap]  ,[memberinfo].[GhinHandicap]  ,[NetScore] FROM  [tb_Scorecard], [memberinfo] where [tb_Scorecard].[memberid] =[memberinfo].[memberid] and [PairingID] = 1 and [LocationID] =  @LocationId">
+		                <SelectParameters>
+			                <asp:Parameter Type="Int32" DefaultValue="1" Name="LocationId"></asp:Parameter>
+		                </SelectParameters>
+	                </asp:SqlDataSource>
+                                       
+
+                    <asp:GridView ID="SQLGridViewSCore1" AutoGenerateColumns="false" DataSourceID="SqlDataSourceScore1"   Font-Size="Small"
+                                Font-Names="Verdana" runat="server" GridLines="Both"  DataKeyNames="LocationId"
+                                BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" >
+                              
+                                <Columns>
+                                   
+
+                             <asp:BoundField DataField = "Firstname" HeaderText = "First name" HtmlEncode = "false" />  
+                             <asp:BoundField DataField = "Lastname" HeaderText = "Last name" HtmlEncode = "false" />       
+                                                                    
+                                    <asp:TemplateField HeaderText="1" SortExpression="Score1">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore1" runat="server" Text='<%# Eval("Score1")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore1" runat="server" Visible="false">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                      
+                                    <asp:TemplateField HeaderText="2" SortExpression="Score2">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore2" runat="server" Text='<%# Eval("Score2")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore2" runat="server" Visible="false" >
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                                                        
+                                     
+                                      
+                                    <asp:TemplateField HeaderText="3" SortExpression="Score3">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore3" runat="server" Text='<%# Eval("Score3")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore3" runat="server" Visible="false">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                                              
+                                                   
+                                      
+                                    <asp:TemplateField HeaderText="4" SortExpression="Score4">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore4" runat="server" Text='<%# Eval("Score4")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore4" runat="server" Visible="false" AutoPostBack="true" CausesValidation="true">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                                        
+                                      
+                                    <asp:TemplateField HeaderText="5" SortExpression="Score5">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore5" runat="server" Text='<%# Eval("Score5")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore5" runat="server" Visible="false" AutoPostBack="true" CausesValidation="true">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                                               
+                                    <asp:TemplateField HeaderText="6" SortExpression="Score6">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore6" runat="server" Text='<%# Eval("Score6")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore6" runat="server" Visible="false" AutoPostBack="true" CausesValidation="true">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                                                         <asp:TemplateField HeaderText="7" SortExpression="Score7">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore7" runat="server" Text='<%# Eval("Score7")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore7" runat="server" Visible="false" AutoPostBack="true" CausesValidation="true">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                                                                                                                       
+                                                   
+                                      
+                                    <asp:TemplateField HeaderText="8" SortExpression="Score8">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore8" runat="server" Text='<%# Eval("Score8")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore8" runat="server" Visible="false" AutoPostBack="true" CausesValidation="true">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                                                  
+                                      
+                                    <asp:TemplateField HeaderText="9" SortExpression="Score9">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore9" runat="server" Text='<%# Eval("Score9")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore9" runat="server" Visible="false" AutoPostBack="true" CausesValidation="true">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                          
+                                
+                            <asp:BoundField DataField = "ScoreTotalout" HeaderText = "Total out"  />    
+
+                                    <asp:TemplateField HeaderText="10" SortExpression="Score11">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore10" runat="server" Text='<%# Eval("Score10")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore10" runat="server" Visible="false" AutoPostBack="true" CausesValidation="true">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                         
+                                    <asp:TemplateField HeaderText="11" SortExpression="Score11">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore11" runat="server" Text='<%# Eval("Score11")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore11" runat="server" Visible="false" AutoPostBack="true" CausesValidation="true">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                      
+                                    <asp:TemplateField HeaderText="12" SortExpression="Score12">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore12" runat="server" Text='<%# Eval("Score12")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore12" runat="server" Visible="false" AutoPostBack="true" CausesValidation="true">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                                                        
+                                     
+                                      
+                                    <asp:TemplateField HeaderText="13" SortExpression="Score13">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore13" runat="server" Text='<%# Eval("Score13")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore13" runat="server" Visible="false" AutoPostBack="true" CausesValidation="true">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                                              
+                                                   
+                                      
+                                    <asp:TemplateField HeaderText="14" SortExpression="Score14">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore14" runat="server" Text='<%# Eval("Score14")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore14" runat="server" Visible="false" AutoPostBack="true" CausesValidation="true">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                                        
+                                      
+                                    <asp:TemplateField HeaderText="15" SortExpression="Score15">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore15" runat="server" Text='<%# Eval("Score15")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore15" runat="server" Visible="false" AutoPostBack="true" CausesValidation="true">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                                               
+                                    <asp:TemplateField HeaderText="16" SortExpression="Score16">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore16" runat="server" Text='<%# Eval("Score16")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore16" runat="server" Visible="false" AutoPostBack="true" CausesValidation="true">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
+
+                                       <asp:TemplateField HeaderText="17" SortExpression="Score17">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore17" runat="server" Text='<%# Eval("Score17")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore17" runat="server" Visible="false" AutoPostBack="true" CausesValidation="true">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                                                                                                                       
+                                                   
+                                      
+                                    <asp:TemplateField HeaderText="18" SortExpression="Score18">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblScore18" runat="server" Text='<%# Eval("Score18")%>'></asp:Label>
+                                            <asp:DropDownList ID="DropDownListScore18" runat="server" Visible="false" AutoPostBack="true" CausesValidation="true">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>1</asp:ListItem>
+                                                <asp:ListItem>2</asp:ListItem>
+                                                <asp:ListItem>3</asp:ListItem>
+                                                <asp:ListItem>4</asp:ListItem>
+                                                <asp:ListItem>5</asp:ListItem>
+                                                <asp:ListItem>6</asp:ListItem>
+                                                <asp:ListItem>7</asp:ListItem>
+                                                <asp:ListItem>8</asp:ListItem>
+                                                <asp:ListItem>9</asp:ListItem>
+                                                <asp:ListItem>10</asp:ListItem>
+                                                <asp:ListItem>11</asp:ListItem>
+                                                <asp:ListItem>12</asp:ListItem> 
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                                         
+                                     
+                                    
+                            <asp:BoundField DataField = "ScoreTotalin" HeaderText = "Total in"  />   
+
+                            <asp:BoundField DataField = "Grandtotal" HeaderText = "Grand Total"  />   
+
+                            <asp:BoundField DataField = "Tournamenthandicap" HeaderText = "Tournament HCP"  />
+                            <asp:BoundField DataField = "Ghinhandicap" HeaderText = "Ghin HCP" />
+                            <asp:BoundField DataField = "NetScore" HeaderText = "Net Score" />
+
+                            </Columns>
+
+                            </asp:GridView>
+                    
+                            <asp:Label id="Label2" runat="server" CssClass="message"></asp:Label>  
+
+                     
+                </div>
+                <div id="TeeGroup1"  style="font-family: Verdana; font-size: x-small; font-weight: normal; display: none">
+            
+                     Tee Group 2<br />
+
+                                          
+                	<asp:SqlDataSource ID="SqlDataSourceScore2" runat="server" ConnectionString="<%$ ConnectionStrings:ClubSiteDB %>"
+		                SelectCommand="SELECT [GhinID] ,[LocationID] ,[PairingID] ,[Date] ,[memberid],[Score1] ,[Score2] ,[Score3] ,[Score4] ,[Score5]   ,[Score6]  ,[Score7] ,[Score8]  ,[Score9] ,[Score10]  ,[ScoreTotalout]   ,[Score11] ,[Score12]  ,[Score13],[Score14]   ,[Score15]    ,[Score16] ,[Score17]  ,[Score18] ,[ScoreTotalin] ,[GrandTotal],[TournamentHandicap]  ,[GhinHandicap]  ,[NetScore] FROM  [tb_Scorecard] where [PairingID] = 2 and [LocationID]  =  @LocationId ">
+		                <SelectParameters>
+			                <asp:Parameter Type="Int32" DefaultValue="1" Name="LocationId"></asp:Parameter>
+		                </SelectParameters>
+	                </asp:SqlDataSource>
+                    
+
+                         <asp:GridView ID="GridView4" AutoGenerateColumns="false" DataSourceID="SqlDataSourceScore2" DataKeyNames="GhinID" Font-Size="Small"
+                                Font-Names="Verdana" runat="server" GridLines="Both">
+                              
+                                <Columns>
+                                                                
+                            <asp:BoundField DataField = "GhinID" HeaderText = "Ghin ID" />
+
+                                    
+                            <asp:TemplateField HeaderText="1" SortExpression="Score1">
+                                <ItemTemplate><%# Eval("Score1")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore1" Text='<%# Eval("Score1")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore1" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                                    
+                            <asp:TemplateField HeaderText="2" SortExpression="Score2">
+                                <ItemTemplate><%# Eval("Score2")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore2" Text='<%# Eval("Score2")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore2" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                                     
+                            <asp:TemplateField HeaderText="3" SortExpression="Score3">
+                                <ItemTemplate><%# Eval("Score3")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore3" Text='<%# Eval("Score3")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore3" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+                                    
+                            <asp:TemplateField HeaderText="4" SortExpression="Score4">
+                                <ItemTemplate><%# Eval("Score4")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore4" Text='<%# Eval("Score4")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore4" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                                    
+                            <asp:TemplateField HeaderText="5" SortExpression="Score5">
+                                <ItemTemplate><%# Eval("Score5")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore5" Text='<%# Eval("Score5")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore5" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+
+                            <asp:TemplateField HeaderText="6" SortExpression="Score6">
+                                <ItemTemplate><%# Eval("Score6")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore6" Text='<%# Eval("Score6")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore6" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+                                    
+                            <asp:TemplateField HeaderText="7" SortExpression="Score7">
+                                <ItemTemplate><%# Eval("Score7")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore7" Text='<%# Eval("Score7")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore7" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+                                    
+                            <asp:TemplateField HeaderText="8" SortExpression="Score8">
+                                <ItemTemplate><%# Eval("Score8")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore8" Text='<%# Eval("Score8")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore8" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                                    
+                            <asp:TemplateField HeaderText="9" SortExpression="Score9">
+                                <ItemTemplate><%# Eval("Score9")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore9" Text='<%# Eval("Score9")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore9" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+                                
+                            <asp:BoundField DataField = "ScoreTotalout" HeaderText = "Total out"  />    
+                                     
+
+              <asp:TemplateField HeaderText="10" SortExpression="Score10">
+                                <ItemTemplate><%# Eval("Score10")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore10" Text='<%# Eval("Score10")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore10" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+              <asp:TemplateField HeaderText="11" SortExpression="Score11">
+                                <ItemTemplate><%# Eval("Score10")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore11" Text='<%# Eval("Score11")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore11" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                                    
+                            <asp:TemplateField HeaderText="12" SortExpression="Score12">
+                                <ItemTemplate><%# Eval("Score12")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore12" Text='<%# Eval("Score12")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore12" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                                     
+                            <asp:TemplateField HeaderText="13" SortExpression="Score13">
+                                <ItemTemplate><%# Eval("Score13")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore13" Text='<%# Eval("Score13")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore13" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+                                    
+                            <asp:TemplateField HeaderText="14" SortExpression="Score14">
+                                <ItemTemplate><%# Eval("Score14")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore14" Text='<%# Eval("Score14")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore14" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                                    
+                            <asp:TemplateField HeaderText="15" SortExpression="Score15">
+                                <ItemTemplate><%# Eval("Score15")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore15" Text='<%# Eval("Score15")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore15" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+
+                            <asp:TemplateField HeaderText="16" SortExpression="Score16">
+                                <ItemTemplate><%# Eval("Score16")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore16" Text='<%# Eval("Score16")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore16" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+                                    
+                            <asp:TemplateField HeaderText="17" SortExpression="Score17">
+                                <ItemTemplate><%# Eval("Score17")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore17" Text='<%# Eval("Score17")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore17" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+                                    
+                            <asp:TemplateField HeaderText="18" SortExpression="Score18">
+                                <ItemTemplate><%# Eval("Score18")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore18" Text='<%# Eval("Score18")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore18" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+                                    
+                            <asp:BoundField DataField = "ScoreTotalin" HeaderText = "Total in"  />   
+
+                            <asp:BoundField DataField = "Grandtotal" HeaderText = "Grand Total"  />   
+
+                            <asp:BoundField DataField = "Tournamenthandicap" HeaderText = "Tournament HCP"  />
+                            <asp:BoundField DataField = "Ghinhandicap" HeaderText = "Ghin HCP" />
+                            <asp:BoundField DataField = "NetScore" HeaderText = "Net Score" />
+
+                            </Columns>
+
+                            </asp:GridView>
+     
+
+                   
+                </div>
+                <div id="TeeGroup2"  style="font-family: Verdana; font-size: x-small; font-weight: normal; display: none">
+                                             
+                          Tee Group 3<br />
+                                             
+                	<asp:SqlDataSource ID="SqlDataSourceScore3" runat="server" ConnectionString="<%$ ConnectionStrings:ClubSiteDB %>"
+		                SelectCommand="SELECT [GhinID] ,[LocationID] ,[PairingID] ,[Date] ,[memberid],[Score1] ,[Score2] ,[Score3] ,[Score4] ,[Score5]   ,[Score6]  ,[Score7] ,[Score8]  ,[Score9] ,[Score10]  ,[ScoreTotalout]   ,[Score11] ,[Score12]  ,[Score13],[Score14]   ,[Score15]    ,[Score16] ,[Score17]  ,[Score18] ,[ScoreTotalin] ,[GrandTotal],[TournamentHandicap]  ,[GhinHandicap]  ,[NetScore] FROM  [tb_Scorecard] where [PairingID] = 3 and [LocationID]  =  @LocationId ">
+		                <SelectParameters>
+			                <asp:Parameter Type="Int32" DefaultValue="1" Name="LocationId"></asp:Parameter>
+		                </SelectParameters>
+	                </asp:SqlDataSource>
+                    
+
+                         <asp:GridView ID="GridView5" AutoGenerateColumns="false" DataSourceID="SqlDataSourceScore3" DataKeyNames="GhinID" Font-Size="Small"
+                                Font-Names="Verdana" runat="server" GridLines="Both">
+                              
+                                <Columns>
+                                                                
+                            <asp:BoundField DataField = "GhinID" HeaderText = "Ghin ID" />
+
+                                    
+                            <asp:TemplateField HeaderText="1" SortExpression="Score1">
+                                <ItemTemplate><%# Eval("Score1")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore1" Text='<%# Eval("Score1")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore1" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                                    
+                            <asp:TemplateField HeaderText="2" SortExpression="Score2">
+                                <ItemTemplate><%# Eval("Score2")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore2" Text='<%# Eval("Score2")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore2" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                                     
+                            <asp:TemplateField HeaderText="3" SortExpression="Score3">
+                                <ItemTemplate><%# Eval("Score3")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore3" Text='<%# Eval("Score3")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore3" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+                                    
+                            <asp:TemplateField HeaderText="4" SortExpression="Score4">
+                                <ItemTemplate><%# Eval("Score4")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore4" Text='<%# Eval("Score4")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore4" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                                    
+                            <asp:TemplateField HeaderText="5" SortExpression="Score5">
+                                <ItemTemplate><%# Eval("Score5")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore5" Text='<%# Eval("Score5")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore5" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+
+                            <asp:TemplateField HeaderText="6" SortExpression="Score6">
+                                <ItemTemplate><%# Eval("Score6")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore6" Text='<%# Eval("Score6")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore6" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+                                    
+                            <asp:TemplateField HeaderText="7" SortExpression="Score7">
+                                <ItemTemplate><%# Eval("Score7")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore7" Text='<%# Eval("Score7")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore7" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+                                    
+                            <asp:TemplateField HeaderText="8" SortExpression="Score8">
+                                <ItemTemplate><%# Eval("Score8")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore8" Text='<%# Eval("Score8")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore8" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                                    
+                            <asp:TemplateField HeaderText="9" SortExpression="Score9">
+                                <ItemTemplate><%# Eval("Score9")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore9" Text='<%# Eval("Score9")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore9" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+                                
+                            <asp:BoundField DataField = "ScoreTotalout" HeaderText = "Total out"  />    
+                                     
+
+              <asp:TemplateField HeaderText="10" SortExpression="Score10">
+                                <ItemTemplate><%# Eval("Score10")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore10" Text='<%# Eval("Score10")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore10" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+              <asp:TemplateField HeaderText="11" SortExpression="Score11">
+                                <ItemTemplate><%# Eval("Score10")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore11" Text='<%# Eval("Score11")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore11" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                                    
+                            <asp:TemplateField HeaderText="12" SortExpression="Score12">
+                                <ItemTemplate><%# Eval("Score12")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore12" Text='<%# Eval("Score12")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore12" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                                     
+                            <asp:TemplateField HeaderText="13" SortExpression="Score13">
+                                <ItemTemplate><%# Eval("Score13")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore13" Text='<%# Eval("Score13")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore13" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+                                    
+                            <asp:TemplateField HeaderText="14" SortExpression="Score14">
+                                <ItemTemplate><%# Eval("Score14")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore14" Text='<%# Eval("Score14")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore14" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                                    
+                            <asp:TemplateField HeaderText="15" SortExpression="Score15">
+                                <ItemTemplate><%# Eval("Score15")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore15" Text='<%# Eval("Score15")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore15" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+
+                            <asp:TemplateField HeaderText="16" SortExpression="Score16">
+                                <ItemTemplate><%# Eval("Score16")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore16" Text='<%# Eval("Score16")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore16" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+                                    
+                            <asp:TemplateField HeaderText="17" SortExpression="Score17">
+                                <ItemTemplate><%# Eval("Score17")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore17" Text='<%# Eval("Score17")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore17" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+                                    
+                            <asp:TemplateField HeaderText="18" SortExpression="Score18">
+                                <ItemTemplate><%# Eval("Score18")%></ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtScore18" Text='<%# Eval("Score18")%>' runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtScore18" Text='' runat="server"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+                                    
+                            <asp:BoundField DataField = "ScoreTotalin" HeaderText = "Total in"  />   
+
+                            <asp:BoundField DataField = "Grandtotal" HeaderText = "Grand Total"  />   
+
+                            <asp:BoundField DataField = "Tournamenthandicap" HeaderText = "Tournament HCP"  />
+                            <asp:BoundField DataField = "Ghinhandicap" HeaderText = "Ghin HCP" />
+                            <asp:BoundField DataField = "NetScore" HeaderText = "Net Score" />
+
+                            </Columns>
+
+                            </asp:GridView>
+     
+
+                     
+                </div>
+                <div id="TeeGroup3"  style="font-family: Verdana; font-size: x-small; font-weight: normal; display: none">
+                  
+                     Tee Group 4<br />
+                         
+<%--                            <asp:GridView ID="GridView6" runat="server" BackColor="White" BorderColor="#e9ecef" AutoGenerateColumns="False"
+                                BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Vertical" DataSourceID="GridView6SqlDataSource1" DataKeyNames="Id"
+                                OnRowDataBound="GridView6_RowDataBound" OnRowCommand="GridView6_RowCommand" OnRowUpdating="GridView6_RowUpdating" 
+                                AllowSorting="True" AllowPaging="True" PageSize="4">
+                                <Columns>                
+                                    <asp:ButtonField Text="SingleClick" CommandName="SingleClick" Visible="False"/>
+                                    <asp:TemplateField HeaderText="Id" SortExpression="Id">
+                                        <ItemTemplate>
+                                            <asp:Label ID="IdLabel" runat="server" Text='<%# Eval("Id") %>'></asp:Label>
+                                            <asp:TextBox ID="Id" runat="server" Text='<%# Eval("Id") %>' Width="30px" visible="false"></asp:TextBox>
+                                        </ItemTemplate>               
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Task" SortExpression="Description">
+                                        <ItemTemplate>
+                                            <asp:Label ID="DescriptionLabel" runat="server" Text='<%# Eval("Description") %>'></asp:Label>
+                                            <asp:TextBox ID="Description" runat="server" Text='<%# Eval("Description") %>' Width="175px" visible="false"></asp:TextBox>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Assigned To" SortExpression="AssignedTo">
+                                        <ItemTemplate>
+                                            <asp:Label ID="AssignedToLabel" runat="server" Text='<%# Eval("AssignedTo") %>'></asp:Label>
+                                            <asp:DropDownList ID="AssignedTo" runat="server" Visible="false" AutoPostBack="true" CausesValidation="true">
+                                                <asp:ListItem></asp:ListItem>
+                                                <asp:ListItem>Andy</asp:ListItem>
+                                                <asp:ListItem>Betty</asp:ListItem>
+                                                <asp:ListItem>Conor</asp:ListItem>
+                                                <asp:ListItem>Declan</asp:ListItem>
+                                                <asp:ListItem>Eamon</asp:ListItem>
+                                                <asp:ListItem>Fergal</asp:ListItem>
+                                                <asp:ListItem>Gordon</asp:ListItem>
+                                                <asp:ListItem>Helen</asp:ListItem>
+                                                <asp:ListItem>Iris</asp:ListItem>
+                                                <asp:ListItem>John</asp:ListItem>
+                                                <asp:ListItem>Kevin</asp:ListItem>
+                                                <asp:ListItem>Lorna</asp:ListItem>
+                                                <asp:ListItem>Matt</asp:ListItem>
+                                                <asp:ListItem>Nora</asp:ListItem>
+                                                <asp:ListItem>Olive</asp:ListItem>
+                                                <asp:ListItem>Peter</asp:ListItem>
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Status" SortExpression="Status">
+                                        <ItemTemplate>
+                                            <asp:Label ID="StatusLabel" runat="server" Text='<%# Eval("Status") %>'></asp:Label>
+                                            <asp:DropDownList ID="Status" runat="server" Visible="false" AutoPostBack="true" CausesValidation="true">
+                                                <asp:ListItem>Pending</asp:ListItem>
+                                                <asp:ListItem>In Progress</asp:ListItem>
+                                                <asp:ListItem>Complete</asp:ListItem>
+                                                <asp:ListItem>Cancelled</asp:ListItem>
+                                                <asp:ListItem>Suspended</asp:ListItem>
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                                <HeaderStyle CssClass="headerStyle" ForeColor="White" />
+                                <RowStyle CssClass="rowStyle" />
+                                <AlternatingRowStyle CssClass="alternatingRowStyle" />
+                                <FooterStyle CssClass="footerStyle" />
+                                <PagerStyle CssClass="pagerStyle" ForeColor="White" />
+                            </asp:GridView>
+                            <br /><br />
+                            <asp:Label id="Message" runat="server" CssClass="message"></asp:Label> 
+                            <asp:SqlDataSource ID="GridView6SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+                                DeleteCommand="DELETE FROM [Tasks] WHERE [Id] = @Id" InsertCommand="INSERT INTO [Tasks] ([Description], [AssignedTo], [Status]) VALUES (@Description, @AssignedTo, @Status)"
+                                SelectCommand="SELECT * FROM [Tasks]" UpdateCommand="UPDATE [Tasks] SET [Description] = @Description, [AssignedTo] = @AssignedTo, [Status] = @Status WHERE [Id] = @Id" >
+                                <DeleteParameters>
+                                    <asp:Parameter Name="Id" Type="Int32" />
+                                </DeleteParameters>
+                                <UpdateParameters>
+                                    <asp:Parameter Name="Description" Type="String" />
+                                    <asp:Parameter Name="AssignedTo" Type="String" />
+                                    <asp:Parameter Name="Status" Type="String" />
+                                    <asp:Parameter Name="Id" Type="Int32" />
+                                </UpdateParameters>
+                                <InsertParameters>
+                                    <asp:Parameter Name="Description" Type="String" />
+                                    <asp:Parameter Name="AssignedTo" Type="String" />
+                                    <asp:Parameter Name="Status" Type="String" />
+                                </InsertParameters>
+                            </asp:SqlDataSource>  --%>
+              
+                </div>
+                <div id="TeeGroup4"  style="font-family: Verdana; font-size: x-small; font-weight: normal; display: none">
+            
+                     Tee Group 5<br />
+                       
+                    
+                </div>
+                <div id="TeeGroup5"  style="font-family: Verdana; font-size: x-small; font-weight: normal; display: none">
+            
+                     Tee Group 6<br />
+                       
+                  
+                </div>
+                <div id="TeeGroup6"  style="font-family: Verdana; font-size: x-small; font-weight: normal; display: none">
+            
+                     Tee Group 7<br />
+                       
+                </div>
+                <div id="TeeGroup7"  style="font-family: Verdana; font-size: x-small; font-weight: normal; display: none">
+            
+                     Tee Group 8<br />
+                       
+                 
+                </div>
+                <div id="TeeGroup8"  style="font-family: Verdana; font-size: x-small; font-weight: normal; display: none">
+            
+                    
+                     Tee Group 9<br />
+                                                                                                             
+            
+                </div>
+                <div id="TeeGroup9"  style="font-family: Verdana; font-size: x-small; font-weight: normal; display: none">
+            
+                     Tee Group 10<br />
+                       
+                </div>
+                <div id="TeeGroup10"  style="font-family: Verdana; font-size: x-small; font-weight: normal; display: none">
+            
+                     Tee Group 11<br />
+                       
+                </div>
+                <div id="TeeGroup11"  style="font-family: Verdana; font-size: x-small; font-weight: normal; display: none">
+            
+                     Tee Group 12<br />
+                       
+
+                </div> 
+            
+            
+            
+            
+             
+        </div>
+        <div id="TabDiv3"   style="font-family: Verdana; font-size: x-small; font-weight: normal; display: none">   
+                  Leader Board  <br />
+				         
+                           
+                	<asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ClubSiteDB %>"
+		                SelectCommand="SELECT [Locations].[id] as id, [Locations].[title] as title,[memberinfo].[firstname] as firstname,[memberinfo].[lastname] as lastname,[tb_Scorecard].[scorecardid] as scorecardid , [memberinfo].[Tournamenthandicap],[memberinfo].[ghinhandicap],[tb_Scorecard].[Grandtotal] as totalscore,CASE WHEN ((Select count(*) FROM [tb_Scorecard] WHERE  [tb_Scorecard].[memberid] =[memberinfo].[memberid]) < 5 or [memberinfo].[Tournamenthandicap] > [memberinfo].[ghinhandicap]) THEN [tb_Scorecard].[Grandtotal] - [memberinfo].[ghinhandicap] ELSE [tb_Scorecard].[Grandtotal] - [memberinfo].[Tournamenthandicap] END as Netscore FROM [Locations], [memberinfo],  [tb_Scorecard] where [Locations].[id] = [tb_Scorecard].[locationid] and [tb_Scorecard].[memberid] =[memberinfo].[memberid] and [memberinfo].[memberid]=[tb_Scorecard].[memberid] and [Locations].[id] = 1 group by [Locations].[id], [Locations].[title], [memberinfo].[firstname], [memberinfo].[lastname], [tb_Scorecard].[scorecardid],[memberinfo].[memberid],[memberinfo].[Tournamenthandicap] , [memberinfo].[Ghinhandicap],[tb_Scorecard].[Grandtotal]  order by Netscore asc"><SelectParameters>
+			                <asp:Parameter Type="Int32" DefaultValue="1" Name="id"></asp:Parameter>
+		                </SelectParameters>
+	                </asp:SqlDataSource>
+
+                             
+                
+                            <asp:GridView ID="GridView1" runat="server" 
+                                    AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource2" 
+                                    ForeColor="#333333"  GridLines="Both">
+                                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                                    <Columns>
+                                          <asp:BoundField DataField="firstname" HeaderText="firstname" 
+                                            SortExpression="firstname" /> 
+                                          <asp:BoundField DataField="lastname" HeaderText="lastname" 
+                                            SortExpression="lastname" /> 
+                                          <asp:BoundField DataField="scorecardid" HeaderText="scorecardid" 
+                                            SortExpression="scorecardid" />                                           
+                                          <asp:BoundField DataField="tournamenthandicap" HeaderText="Tournament Handicap" 
+                                            SortExpression="tournamenthandicap" />   
+                                                                                
+                                          <asp:BoundField DataField="ghinhandicap" HeaderText="Ghin Handicap" 
+                                            SortExpression="ghinhandicap" /> 
+                                                                               
+                                          <asp:BoundField DataField="totalscore" HeaderText="Total Score" 
+                                            SortExpression="totalscore " /> 
+                                                                               
+                                          <asp:BoundField DataField="netscore" HeaderText="Net Score" 
+                                            SortExpression="netscore " /> 
+
+                                    </Columns>
+                                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                                    <EditRowStyle BackColor="#999999" />
+                                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" /> 
+                                </asp:GridView>
+        </div> 
+
+		</div>
+   </div>       
+</asp:Content>
+
